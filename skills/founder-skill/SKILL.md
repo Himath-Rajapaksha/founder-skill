@@ -15,7 +15,7 @@ Refuse to create application code until `docs/specs/` contains all six documents
 
 **Application code means:** scaffolding, `package.json`, server files, schema DDL, components, routes, seed scripts. **Allowed before approval:** writing/updating the six docs, environment probes (`node -v`, `pg_isready`), reading existing files.
 
-**Canonical Six — always exactly these, never substitutes:** Product Requirements Document (PRD), Technical Specification, User Flow Document, Design System Guidelines, Data Model & Access Control Document, Project Delivery Plan. Do not invent your own equivalent set (no "API contract instead of Technical Specification", no "roles doc instead of Data Model & Access Control"). If a doc feels redundant for a simple app, write it shorter — do not replace it.
+**Canonical Six — always exactly these, never substitutes:** Product Requirements Document (PRD), Technical Specification, User Flow Document, Design System Guidelines, Data Model & Access Control Document, Project Delivery Plan. Do not invent your own equivalent set (no "API contract instead of Technical Specification", no "roles doc instead of Data Model & Access Control", no seventh "compliance doc" — compliance lives inside 1/4/5/6). If a doc feels redundant for a simple app, write it shorter — do not replace it.
 
 ## The Specification Package
 
@@ -30,13 +30,39 @@ Refuse to create application code until `docs/specs/` contains all six documents
 
 Create them in order — each feeds the next.
 
+## Compliance Inputs
+
+Legal, privacy, and accessibility requirements are answered **inside the existing six — never as a seventh document**. Inject these as `DECISION NEEDED` prompts while drafting:
+
+**In `01-prd.md`:**
+- Target jurisdictions (US states / EU-UK / other)?
+- Audience includes under-13 users?
+- Business model: free / subscription / one-time / e-commerce / tickets-or-lodging?
+- Marketing email Y/N?
+
+**In `04-design-system.md`:**
+- WCAG 2.1 AA target: body-text contrast ≥4.5:1, visible focus states, alt text required on content images
+- Font/image license provenance (OFL/self-licensed/properly-licensed stock — record it)
+
+**In `05-data-model-rbac.md`:**
+- Every PII field: purpose + retention period
+- Third-party SDK/sub-processor inventory (anything setting identifiers needs consent + privacy-policy disclosure)
+- Consent vs contract lawful basis per processing purpose
+- User-initiated data deletion path (an email address suffices at MVP)
+
+**In `06-project-plan.md` — final phase, "Launch Readiness Gate":** the plan must end with a completion gate driven by the PRD answers:
+- *Always:* privacy policy live before the first email field collects data; ToS; footer identity block (legal name, physical address, contact email); unsubscribe + physical address in every marketing email; WCAG pass on the core funnel; no fake reviews, hidden fees, or unsupported claims; only licensed assets
+- *If EU/UK:* cookie banner with equal-prominence accept/reject (non-essential tags blocked pre-consent), 14-day withdrawal/refund flow, cookie disclosure
+- *If under-13 audience:* COPPA/GDPR-K — escalate to a lawyer, not a checklist
+- *If tickets/lodging:* all-in pricing shown upfront
+
 ## Workflow (Hybrid)
 
 1. **Collect the brief.** If the user gave a description, use it. If missing essentials (what the app does, who uses it), ask focused questions — one round, not an interrogation.
 2. **Draft all six** under `docs/specs/` with sensible defaults, marking uncertain choices `> DECISION NEEDED: ...`.
 3. **Interview to fill gaps.** Walk the user through only the `DECISION NEEDED` items. Revise docs with their answers.
 4. **Approval gate.** Present a one-paragraph summary per doc and ask for approval of all six. Do not start coding in the same turn you present them.
-5. **Build.** Only after approval, implement per `06-project-plan.md`.
+5. **Build.** Only after approval, implement per `06-project-plan.md`. The build is not "done" until the Launch Readiness Gate in that plan passes and the user approves it.
 
 ## Red Flags — STOP
 
@@ -47,6 +73,7 @@ Create them in order — each feeds the next.
 - Writing docs that describe code you already wrote, instead of design decisions made before code
 - Retroactive docs offered as a substitute ("I'll reverse-engineer the data model doc from what I built")
 - Inventing a different set of six documents, or swapping one canonical doc for an "equivalent"
+- Creating a seventh "compliance" document instead of the Compliance Inputs inside 1/4/5/6
 
 ## Rationalization Table
 

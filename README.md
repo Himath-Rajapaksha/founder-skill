@@ -31,6 +31,15 @@ Refuse to create application code (scaffolding, `package.json`, server files, sc
 
 Documents are created in order — each feeds the next.
 
+## Compliance Layer
+
+Legal, privacy, and accessibility requirements are answered **inside the existing six — never as a seventh document** (a conditional seventh doc would let agents rationalize skipping it):
+
+- **PRD** picks up the driving inputs: target jurisdictions, under-13 audience, business model, marketing email
+- **Design System Guidelines** carries WCAG 2.1 AA (4.5:1 contrast, focus states, alt text) and font/image license provenance
+- **Data Model & Access Control** carries data minimization (purpose + retention per field), SDK/sub-processor inventory, lawful basis, deletion path
+- **Project Delivery Plan** ends with a **Launch Readiness Gate** — always-on items (privacy policy before first email field, ToS, footer identity, unsubscribe, WCAG funnel pass, no fake reviews/hidden fees/unsupported claims) plus conditional annexes (EU cookie banner + 14-day withdrawal, COPPA escalation, all-in pricing)
+
 ## Workflow (Hybrid)
 
 1. **Collect the brief.** Use the user's description; ask one focused round of questions if essentials are missing.
